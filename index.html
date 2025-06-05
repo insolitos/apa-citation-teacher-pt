@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APA Master - Formação em Citações para Professores</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2C3E50;
+            --secondary: #3498DB;
+            --accent: #E74C3C;
+            --success: #27AE60;
+            --warning: #F39C12;
+            --light: #ECF0F1;
+            --dark: #34495E;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: #f5f7fa;
+            overflow-x: hidden;
+        }
+
+        /* Header com animação */
+        .header {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-10%, -10%) scale(1.1); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: slideInDown 0.8s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Navegação */
+        .nav-tabs {
+            display: flex;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px 10px 0 0;
+            margin-top: -1rem;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+
+        .nav-tab.active {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--secondary);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Conteúdo das tabs */
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Cards de exemplos */
+        .example-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example-card::before {
+            content: '📚';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 3rem;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+        }
+
+        .citation-example {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1rem;
+            line-height: 2;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            margin: 1rem 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+        }
+
+        /* Exercícios interativos */
+        .exercise-container {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border: 2px dashed var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .exercise-container:hover {
+            border-style: solid;
+            background: #f0f8ff;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980B9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Feedback */
+        .feedback {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            display: none;
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            background: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            width: 0%;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: var(--gradient);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 2px dotted var(--secondary);
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--dark) transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Accordion */
+        .accordion {
+            margin: 1rem 0;
+        }
+
+        .accordion-header {
+            background: var(--light);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .accordion-header:hover {
+            background: #d5dbdb;
+        }
+
+        .accordion-header.active {
+            background: var(--secondary);
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .accordion-content.active {
+            max-height: 1000px;
+            padding: 1rem;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Quiz section */
+        .quiz-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: #e9ecef;
+            border-color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .quiz-option.correct {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Animações extras */
+        .bounce {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+            
+            .nav-tab {
+                min-width: 150px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Modo de impressão */
+        @media print {
+            .nav-tabs, .btn, .exercise-container {
+                display: none;
+            }
+            
+            .content-section {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+
+        /* Loading animation */
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        .badge-new {
+            background: var(--accent);
+            color: white;
+        }
+
+        .badge-important {
+            background: var(--warning);
+            color: white;
+        }
+
+        /* Highlight */
+        .highlight {
+            background: linear-gradient(180deg, transparent 60%, #ffeb3b 60%);
+            padding: 0 0.2rem;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+            max-width: 300px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-left: 4px solid var(--success);
+        }
+
+        .notification.error {
+            border-left: 4px solid var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>APA Master 📚</h1>
+            <p class="subtitle">Formação Completa em Citações APA para Professores</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('intro')">Introdução</button>
+            <button class="nav-tab" onclick="showTab('fundamentos')">Fundamentos</button>
+            <button class="nav-tab" onclick="showTab('tipos')">Tipos de Citação</button>
+            <button class="nav-tab" onclick="showTab('referencias')">Referências</button>
+            <button class="nav-tab" onclick="showTab('exercicios')">Exercícios</button>
+            <button class="nav-tab" onclick="showTab('casos')">Casos Especiais</button>
+            <button class="nav-tab" onclick="showTab('ferramentas')">Ferramentas</button>
+            <button class="nav-tab" onclick="showTab('quiz')">Quiz Final</button>
+        </nav>
+
+        <!-- Tab 1: Introdução -->
+        <div id="intro" class="tab-content active">
+            <div class="content-section">
+                <h2>Porquê Citar? A Importância da Integridade Académica</h2>
+                <p>Como futuro professor, compreender e aplicar corretamente as normas de citação é fundamental não apenas para o seu sucesso académico, mas também para transmitir valores de integridade e rigor aos seus alunos.</p>
+                
+                <div class="example-card">
+                    <h3>🎯 Objetivos desta Formação</h3>
+                    <ul>
+                        <li><strong>Compreender</strong> a importância ética e legal das citações</li>
+                        <li><strong>Dominar</strong> as regras APA 7ª edição</li>
+                        <li><strong>Aplicar</strong> citações em diversos contextos académicos</li>
+                        <li><strong>Ensinar</strong> boas práticas aos futuros alunos</li>
+                        <li><strong>Evitar</strong> plágio acidental ou intencional</li>
+                    </ul>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Por que razão as citações são essenciais?</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <h4>1. Credibilidade Académica</h4>
+                        <p>As citações demonstram que o seu trabalho está fundamentado em pesquisa sólida e reconhecida pela comunidade académica.</p>
+                        
+                        <h4>2. Respeito pela Propriedade Intelectual</h4>
+                        <p>Ao citar, reconhece o trabalho e esforço de outros investigadores, respeitando os seus direitos autorais.</p>
+                        
+                        <h4>3. Verificabilidade</h4>
+                        <p>Permite que outros verifiquem as suas fontes e aprofundem o conhecimento sobre o tema.</p>
+                        
+                        <h4>4. Desenvolvimento do Pensamento Crítico</h4>
+                        <p>O processo de citação obriga-o a distinguir entre as suas ideias e as de outros, desenvolvendo a capacidade analítica.</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Consequências do Plágio</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="example-card" style="border-left-color: var(--accent);">
+                            <h4>⚠️ Consequências Académicas</h4>
+                            <ul>
+                                <li>Reprovação no trabalho ou disciplina</li>
+                                <li>Suspensão ou expulsão da instituição</li>
+                                <li>Perda de bolsas de estudo</li>
+                                <li>Registo permanente no processo académico</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-card" style="border-left-color: var(--warning);">
+                            <h4>💼 Consequências Profissionais</h4>
+                            <ul>
+                                <li>Perda de credibilidade profissional</li>
+                                <li>Impossibilidade de publicação futura</li>
+                                <li>Danos à reputação da instituição</li>
+                                <li>Possíveis processos legais</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 12.5%;"></div>
+                </div>
+                <p style="text-align: center; color: #666;">Progresso: 12.5% concluído</p>
+            </div>
+        </div>
+
+        <!-- Tab 2: Fundamentos -->
+        <div id="fundamentos" class="tab-content">
+            <div class="content-section">
+                <h2>Fundamentos das Normas APA</h2>
+                <p>A American Psychological Association (APA) desenvolveu um conjunto de normas amplamente utilizadas nas ciências sociais e humanas, incluindo a educação.</p>
+
+                <div class="example-card">
+                    <h3>📋 Elementos Essenciais de uma Citação</h3>
+                    <table>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>Descrição</th>
+                            <th>Exemplo</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Autor(es)</strong></td>
+                            <td>Quem escreveu o trabalho</td>
+                            <td>Silva, J. M.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ano</strong></td>
+                            <td>Quando foi publicado</td>
+                            <td>(2023)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Título</strong></td>
+                            <td>Nome do trabalho</td>
+                            <td><em>Metodologias ativas na educação</em></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fonte</strong></td>
+                            <td>Onde foi publicado</td>
+                            <td>Revista Portuguesa de Educação</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>Estrutura Básica</h3>
+                <div class="code-block">
+                    Autor, A. A. (Ano). Título do trabalho. Fonte.
+                </div>
+
+                <div class="exercise-container">
+                    <h4>🔍 Identifique os Elementos</h4>
+                    <p>Analise a seguinte referência e identifique cada elemento:</p>
+                    <div class="citation-example">
+                        Fernandes, M. L. (2022). <em>Inovação pedagógica no ensino superior</em>. Revista de Educação Contemporânea, 15(3), 45-62.
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                        <input type="text" class="input-field" placeholder="Autor(es)" id="fund-autor">
+                        <input type="text" class="input-field" placeholder="Ano" id="fund-ano">
+                        <input type="text" class="input-field" placeholder="Título" id="fund-titulo">
+                        <input type="text" class="input-field" placeholder="Fonte" id="fund-fonte">
+                    </div>
+                    <button class="btn btn-primary" onclick="verificarFundamentos()">Verificar Respostas</button>
+                    <div id="fund-feedback" class="feedback"></div>
+                </div>
+
+                <h3>Formatação Específica</h3>
+                <div class="example-card">
+                    <h4>📝 Regras de Formatação</h4>
+                    <ul>
+                        <li><strong>Itálico:</strong> Títulos de livros, revistas, jornais</li>
+                        <li><strong>Aspas:</strong> Títulos de artigos, capítulos</li>
+                        <li><strong>Maiúsculas:</strong> Apenas primeira palavra do título e nomes próprios</li>
+                        <li><strong>Pontuação:</strong> Ponto após autor, ano e título</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Tipos de Citação -->
+        <div id="tipos" class="tab-content">
+            <div class="content-section">
+                <h2>Tipos de Citação no Texto</h2>
+                
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Citação Direta Longa (40 palavras ou mais)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Citações longas devem aparecer num bloco separado, sem aspas, com recuo de 1,27 cm.</p>
+                        <div class="citation-example" style="margin-left: 2rem; border-left: 3px solid #ccc; padding-left: 1rem;">
+                            <p>Santos (2023) explica o impacto da tecnologia na educação:</p>
+                            <p style="margin: 1rem 0;">
+                            As ferramentas digitais revolucionaram a forma como ensinamos e aprendemos. 
+                            Os professores deixaram de ser meros transmissores de conhecimento para se 
+                            tornarem facilitadores e orientadores do processo de aprendizagem. Esta mudança 
+                            paradigmática exige novas competências e uma constante atualização profissional 
+                            que desafia os modelos tradicionais de formação docente. (p. 128)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Citação Indireta (Paráfrase)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Quando reformula as ideias do autor com as suas próprias palavras.</p>
+                        <div class="citation-example">
+                            <p><strong>Texto original:</strong> "O construtivismo defende que o conhecimento é construído ativamente pelo aprendiz."</p>
+                            <p><strong>Paráfrase:</strong> De acordo com Oliveira (2022), a teoria construtivista propõe que os alunos são participantes ativos na construção do seu próprio conhecimento.</p>
+                        </div>
+                        <div class="example-card" style="border-left-color: var(--warning);">
+                            <h4>⚠️ Atenção</h4>
+                            <p>Mesmo ao parafrasear, deve sempre citar a fonte! Não o fazer constitui plágio.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Citação de Citação</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Quando cita um autor que foi citado por outro (use apenas quando não tiver acesso ao original).</p>
+                        <div class="citation-example">
+                            Piaget (1970, citado por Martins, 2023) argumenta que o desenvolvimento cognitivo ocorre em estágios sequenciais.
+                        </div>
+                        <p><strong>Na lista de referências, inclua apenas a fonte que consultou (Martins, 2023).</strong></p>
+                    </div>
+                </div>
+
+                <div class="exercise-container">
+                    <h4>💡 Pratique: Transforme em Citação</h4>
+                    <p><strong>Texto original:</strong></p>
+                    <div class="citation-example">
+                        "A avaliação formativa permite aos professores ajustar as suas estratégias de ensino em tempo real, respondendo às necessidades específicas de cada aluno." (Rodrigues, 2024, p. 67)
+                    </div>
+                    <p>Transforme este texto numa:</p>
+                    <label>1. Citação direta com autor no início:</label>
+                    <textarea class="input-field" rows="3" id="cit-direta" placeholder="Escreva aqui..."></textarea>
+                    <label>2. Paráfrase:</label>
+                    <textarea class="input-field" rows="3" id="cit-parafrase" placeholder="Escreva aqui..."></textarea>
+                    <button class="btn btn-primary" onclick="verificarCitacoes()">Verificar</button>
+                    <div id="cit-feedback" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Referências -->
+        <div id="referencias" class="tab-content">
+            <div class="content-section">
+                <h2>Lista de Referências - Casos Completos</h2>
+                
+                <h3>📚 Livros</h3>
+                <div class="example-card">
+                    <h4>Um autor</h4>
+                    <div class="citation-example">
+                        Almeida, P. (2023). <em>Pedagogia contemporânea: Desafios e oportunidades</em>. Editora Académica.
+                    </div>
+                    
+                    <h4>Vários autores (até 20)</h4>
+                    <div class="citation-example">
+                        Silva, A., Costa, B., & Ferreira, C. (2022). <em>Metodologias ativas no ensino básico</em>. Porto Editora.
+                    </div>
+                    
+                    <h4>Mais de 20 autores</h4>
+                    <div class="citation-example">
+                        Miller, T. C., Brown, M. J., Wilson, G. L., Evans, B. B., Kelly, R. S., Turner, S. T., ... Lewis, L. H. (2018). <em>Large-scale educational research</em>. Academic Press.
+                    </div>
+                    
+                    <h4>Editor(es)</h4>
+                    <div class="citation-example">
+                        Mendes, R., & Sousa, T. (Eds.). (2023). <em>Inovação curricular no século XXI</em>. Universidade de Lisboa.
+                    </div>
+                </div>
+
+                <h3>📰 Artigos de Revista</h3>
+                <div class="example-card">
+                    <h4>Artigo com DOI</h4>
+                    <div class="citation-example">
+                        Fernandes, M. (2024). O impacto da inteligência artificial na educação. <em>Revista Portuguesa de Pedagogia</em>, 58(2), 123-145. https://doi.org/10.1234/rpp.2024.58.2.123
+                    </div>
+                    
+                    <h4>Artigo online sem DOI</h4>
+                    <div class="citation-example">
+                        Santos, J. (2023). Estratégias de ensino diferenciado. <em>Educação Online</em>, 15(4), 67-82. https://www.educacaoonline.pt/artigo/2023/estrategias
+                    </div>
+                </div>
+
+                <h3>🌐 Fontes Eletrónicas</h3>
+                <div class="example-card">
+                    <h4>Página web com autor</h4>
+                    <div class="citation-example">
+                        Ministério da Educação. (2024, janeiro 15). <em>Novas diretrizes curriculares para 2024</em>. https://www.portugal.gov.pt/educacao/diretrizes-2024
+                    </div>
+                    
+                    <h4>Página web sem autor</h4>
+                    <div class="citation-example">
+                        <em>Guia de boas práticas pedagógicas</em>. (2023, março 10). Portal da Educação. https://www.portaleducacao.pt/guia-praticas
+                    </div>
+                </div>
+
+                <h3>📊 Outros Tipos</h3>
+                <div class="example-card">
+                    <h4>Tese ou Dissertação</h4>
+                    <div class="citation-example">
+                        Oliveira, L. M. (2023). <em>A gamificação como estratégia de motivação no ensino secundário</em> [Tese de doutoramento, Universidade do Porto]. Repositório Aberto. https://repositorio.up.pt/handle/12345
+                    </div>
+                    
+                    <h4>Comunicação em Conferência</h4>
+                    <div class="citation-example">
+                        Cardoso, A., & Nunes, B. (2023, maio 12-14). <em>Realidade aumentada na sala de aula</em> [Apresentação]. Conferência Internacional de Tecnologia Educativa, Lisboa, Portugal.
+                    </div>
+                </div>
+
+                <div class="exercise-container">
+                    <h4>🔧 Construa uma Referência</h4>
+                    <p>Complete os campos para criar uma referência de livro:</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <input type="text" class="input-field" placeholder="Autor(es) - Ex: Silva, J. M." id="ref-autor">
+                        <input type="text" class="input-field" placeholder="Ano - Ex: 2024" id="ref-ano">
+                        <input type="text" class="input-field" placeholder="Título do livro" id="ref-titulo">
+                        <input type="text" class="input-field" placeholder="Editora" id="ref-editora">
+                    </div>
+                    <button class="btn btn-primary" onclick="construirReferencia()">Gerar Referência</button>
+                    <div id="ref-resultado" class="citation-example" style="display: none; margin-top: 1rem;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 5: Exercícios -->
+        <div id="exercicios" class="tab-content">
+            <div class="content-section">
+                <h2>Exercícios Práticos</h2>
+                
+                <div class="exercise-container">
+                    <h3>Exercício 1: Detetar Erros</h3>
+                    <p>Identifique e corrija os erros nas seguintes referências:</p>
+                    
+                    <div class="example-card" style="background: #fff3cd;">
+                        <p><strong>Referência 1:</strong></p>
+                        <div class="citation-example">
+                            Silva, João. (2023) Educação inclusiva. editora ABC
+                        </div>
+                        <textarea class="input-field" rows="2" id="erro1" placeholder="Corrija aqui..."></textarea>
+                    </div>
+                    
+                    <div class="example-card" style="background: #fff3cd;">
+                        <p><strong>Referência 2:</strong></p>
+                        <div class="citation-example">
+                            COSTA, M. (2022). "Metodologias Ativas". Revista de Educação, 12(3).
+                        </div>
+                        <textarea class="input-field" rows="2" id="erro2" placeholder="Corrija aqui..."></textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="verificarErros()">Verificar Correções</button>
+                    <div id="erros-feedback" class="feedback"></div>
+                </div>
+
+                <div class="exercise-container">
+                    <h3>Exercício 2: Ordenar Referências</h3>
+                    <p>Organize as seguintes referências por ordem alfabética:</p>
+                    <div id="referencias-desordenadas">
+                        <div class="citation-example" draggable="true" id="ref1">
+                            Ferreira, A. (2023). <em>Didática geral</em>. Porto Editora.
+                        </div>
+                        <div class="citation-example" draggable="true" id="ref2">
+                            Costa, B. (2022). <em>Avaliação formativa</em>. Editora Académica.
+                        </div>
+                        <div class="citation-example" draggable="true" id="ref3">
+                            Almeida, C., & Silva, D. (2024). <em>Tecnologia educativa</em>. Universidade de Lisboa.
+                        </div>
+                        <div class="citation-example" draggable="true" id="ref4">
+                            Costa, A. (2021). <em>Psicologia da educação</em>. Texto Editores.
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="verificarOrdem()">Verificar Ordem</button>
+                    <div id="ordem-feedback" class="feedback"></div>
+                </div>
+
+                <div class="exercise-container">
+                    <h3>Exercício 3: Citação no Texto</h3>
+                    <p>Complete as citações em falta neste parágrafo:</p>
+                    <div class="citation-example" style="line-height: 2;">
+                        A teoria das inteligências múltiplas <input type="text" class="input-field" style="width: 200px; display: inline;" placeholder="(autor, ano)"> 
+                        revolucionou a forma como entendemos a aprendizagem. Segundo <input type="text" class="input-field" style="width: 150px; display: inline;" placeholder="autor">, 
+                        "cada indivíduo possui diferentes tipos de inteligência que devem ser valorizados no contexto educativo" 
+                        <input type="text" class="input-field" style="width: 100px; display: inline;" placeholder="(página)">.
+                    </div>
+                    <button class="btn btn-primary" onclick="verificarCitacaoTexto()">Verificar</button>
+                    <div id="citacao-texto-feedback" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 6: Casos Especiais -->
+        <div id="casos" class="tab-content">
+            <div class="content-section">
+                <h2>Casos Especiais e Situações Complexas</h2>
+                
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Obras sem autor identificado</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Use o título da obra no lugar do autor:</p>
+                        <div class="citation-example">
+                            <em>Manual de práticas pedagógicas</em>. (2023). Ministério da Educação.
+                        </div>
+                        <p>No texto: (<em>Manual de práticas pedagógicas</em>, 2023)</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Autores com o mesmo apelido</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Inclua as iniciais dos primeiros nomes:</p>
+                        <div class="citation-example">
+                            J. Silva (2023) e M. Silva (2023) apresentam perspetivas diferentes sobre...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Várias obras do mesmo autor no mesmo ano</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Adicione letras minúsculas após o ano:</p>
+                        <div class="citation-example">
+                            Costa, P. (2023a). <em>Avaliação no ensino básico</em>. Porto Editora.<br>
+                            Costa, P. (2023b). <em>Instrumentos de avaliação</em>. Porto Editora.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Comunicações pessoais</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>E-mails, entrevistas, conversas - cite apenas no texto, não na lista de referências:</p>
+                        <div class="citation-example">
+                            M. Fernandes (comunicação pessoal, 15 de março de 2024) sugeriu que...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Fontes secundárias</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Quando não tem acesso à fonte original:</p>
+                        <div class="citation-example">
+                            Vygotsky (1978, citado por Santos, 2023) defendeu a importância da zona de desenvolvimento proximal...
+                        </div>
+                        <p class="highlight">⚠️ Use com moderação - procure sempre a fonte original!</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Legislação e documentos oficiais</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="citation-example">
+                            Lei n.º 46/86 de 14 de outubro. (1986). <em>Diário da República</em>, 1.ª série, n.º 237. https://dre.pt/dre/detalhe/lei/46-1986-222418
+                        </div>
+                        <p>No texto: Lei n.º 46/86 (1986) ou (Lei n.º 46/86, 1986)</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Redes sociais e conteúdo online</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <h4>Tweet/Post no X</h4>
+                        <div class="citation-example">
+                            Ministério da Educação [@min_educacao]. (2024, janeiro 10). <em>Novas medidas para combater o insucesso escolar...</em> [Tweet]. X. https://x.com/min_educacao/status/123456
+                        </div>
+                        
+                        <h4>Vídeo do YouTube</h4>
+                        <div class="citation-example">
+                            TEDx Talks. (2023, maio 15). <em>O futuro da educação</em> [Vídeo]. YouTube. https://www.youtube.com/watch?v=abc123
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 7: Ferramentas -->
+        <div id="ferramentas" class="tab-content">
+            <div class="content-section">
+                <h2>Ferramentas e Recursos</h2>
+                
+                <div class="example-card">
+                    <h3>🛠️ Gestores de Referências</h3>
+                    <table>
+                        <tr>
+                            <th>Ferramenta</th>
+                            <th>Características</th>
+                            <th>Ideal para</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Mendeley</strong></td>
+                            <td>Gratuito, sincronização cloud, leitor PDF integrado</td>
+                            <td>Investigadores, trabalhos colaborativos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Zotero</strong></td>
+                            <td>Open source, extensões para browsers, muito flexível</td>
+                            <td>Académicos, projetos longos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EndNote</strong></td>
+                            <td>Profissional, integração com Word, muitos estilos</td>
+                            <td>Publicações, teses</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="example-card">
+                    <h3>📱 Aplicações Móveis</h3>
+                    <ul>
+                        <li><strong>EasyBib:</strong> Digitaliza códigos de barras de livros</li>
+                        <li><strong>CiteMaker:</strong> Interface simples para criar citações rápidas</li>
+                        <li><strong>RefME:</strong> Reconhece automaticamente tipos de fonte</li>
+                    </ul>
+                </div>
+
+                <div class="exercise-container">
+                    <h3>🔄 Conversor de Citações</h3>
+                    <p>Cole uma referência em qualquer formato e converta para APA:</p>
+                    <textarea class="input-field" rows="3" id="conv-input" placeholder="Ex: Silva, João. Educação Moderna. Lisboa: Editora ABC, 2023."></textarea>
+                    <button class="btn btn-primary" onclick="converterCitacao()">Converter para APA</button>
+                    <div id="conv-resultado" class="citation-example" style="display: none; margin-top: 1rem;"></div>
+                </div>
+
+                <div class="example-card">
+                    <h3>✅ Checklist para Revisão</h3>
+                    <div style="column-count: 2; column-gap: 2rem;">
+                        <label><input type="checkbox"> Todos os autores citados estão nas referências</label>
+                        <label><input type="checkbox"> Todas as referências foram citadas no texto</label>
+                        <label><input type="checkbox"> Anos correspondem entre citações e referências</label>
+                        <label><input type="checkbox"> Ordem alfabética correta</label>
+                        <label><input type="checkbox"> Itálicos aplicados corretamente</label>
+                        <label><input type="checkbox"> DOIs e URLs funcionam</label>
+                        <label><input type="checkbox"> Formatação consistente</label>
+                        <label><input type="checkbox"> Pontuação correta</label>
+                    </div>
+                </div>
+
+                <div class="example-card" style="background: linear-gradient(135deg, #ffeaa7 0%, #dfe6e9 100%);">
+                    <h3>💡 Dicas de Produtividade</h3>
+                    <ol>
+                        <li><strong>Organize desde o início:</strong> Crie uma pasta para PDFs e um documento para anotar referências</li>
+                        <li><strong>Use atalhos:</strong> Configure o seu processador de texto com estilos APA</li>
+                        <li><strong>Verifique sempre:</strong> Use o DOI Resolver para confirmar links</li>
+                        <li><strong>Colabore:</strong> Partilhe bibliotecas no Mendeley/Zotero com colegas</li>
+                        <li><strong>Automatize:</strong> Use plugins para Word/Google Docs</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 8: Quiz Final -->
+        <div id="quiz" class="tab-content">
+            <div class="content-section">
+                <h2>Quiz Final - Teste os Seus Conhecimentos</h2>
+                <p>Complete este quiz para avaliar o seu domínio das normas APA. Precisa de 80% para obter o certificado!</p>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h3>Pergunta 1/10</h3>
+                        <p>Qual é a forma correta de citar um livro com dois autores?</p>
+                        <button class="quiz-option" onclick="selectOption(this, 1, 'A')">
+                            A) Silva & Costa (2023)
+                        </button>
+                        <button class="quiz-option" onclick="selectOption(this, 1, 'B')">
+                            B) Silva, J. e Costa, M. (2023)
+                        </button>
+                        <button class="quiz-option" onclick="selectOption(this, 1, 'C')">
+                            C) Silva and Costa (2023)
+                        </button>
+                        <button class="quiz-option" onclick="selectOption(this, 1, 'D')">
+                            D) Silva; Costa (2023)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h3>Pergunta 2/10</h3>
+                        <p>Numa citação direta com mais de 40 palavras, deve:</p>
+                        <button class="quiz-option" onclick="selectOption(this, 2, 'A')">
+                            A) Usar aspas e manter no texto
+                        </button>
+                        <button class="quiz-option" onclick="selectOption(this, 2, 'B')">
+                            B) Criar um bloco com recuo, sem aspas
+                        </button>
+                        <button class="quiz-option" onclick="selectOption(this, 2, 'C')">
+                            C) Usar itálico
+                        </button>
+                        <button class="quiz-option" onclick="selectOption(this, 2, 'D')">
+                            D) Reduzir o tamanho da fonte
+                        </button>
+                    </div>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h3>Pergunta 3/10</h3>
+                        <p>Como citar uma obra sem autor?</p>
+                        <button class="quiz-option" onclick="selectOption(this, 3, 'A')">
+                            A) Anónimo (2023)
+                        </button>
+                        <button class="quiz-option" onclick="selectOption(this, 3, 'B')">
+                            B) Sem autor (2023)
+                        </button>
+                        <button class="quiz-option" onclick="selectOption(this, 3, 'C')">
+                            C) ("Título do trabalho", 2023)
+                        </button>
+                        <button class="quiz-option" onclick="selectOption(this, 3, 'D')">
+                            D) N.A. (2023)
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn btn-success" onclick="calcularResultado()" style="margin-top: 2rem;">
+                    Submeter Quiz
+                </button>
+                
+                <div id="quiz-resultado" style="display: none; margin-top: 2rem;">
+                    <h3>Resultado Final</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="quiz-progress"></div>
+                    </div>
+                    <p id="quiz-score" style="font-size: 1.5rem; text-align: center; margin-top: 1rem;"></p>
+                    <div id="certificado" style="display: none;">
+                        <div class="example-card" style="background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%); color: white; text-align: center;">
+                            <h2>🎓 Parabéns!</h2>
+                            <p>Completou com sucesso a formação em Citações APA!</p>
+                            <button class="btn" style="background: white; color: var(--primary);" onclick="gerarCertificado()">
+                                Gerar Certificado
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="voltarAoTopo()">↑</button>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <p id="notification-text"></p>
+    </div>
+
+    <script>
+        // Variáveis globais
+        let currentTab = 'intro';
+        let quizAnswers = {};
+        let progress = 12.5;
+
+        // Função para mostrar tabs
+        function showTab(tabName) {
+            // Esconder todas as tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remover active de todos os botões
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Mostrar tab selecionada
+            document.getElementById(tabName).classList.add('active');
+            
+            // Ativar botão correspondente
+            event.target.classList.add('active');
+            
+            // Atualizar progresso
+            updateProgress(tabName);
+            
+            currentTab = tabName;
+        }
+
+        // Função para atualizar progresso
+        function updateProgress(tabName) {
+            const progressMap = {
+                'intro': 12.5,
+                'fundamentos': 25,
+                'tipos': 37.5,
+                'referencias': 50,
+                'exercicios': 62.5,
+                'casos': 75,
+                'ferramentas': 87.5,
+                'quiz': 100
+            };
+            
+            progress = progressMap[tabName] || 0;
+            document.querySelectorAll('.progress-bar').forEach(bar => {
+                if (bar.id !== 'quiz-progress') {
+                    bar.style.width = progress + '%';
+                }
+            });
+        }
+
+        // Função para toggle accordion
+        function toggleAccordion(header) {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        // Verificar exercício dos fundamentos
+        function verificarFundamentos() {
+            const respostas = {
+                'fund-autor': 'Fernandes, M. L.',
+                'fund-ano': '2022',
+                'fund-titulo': 'Inovação pedagógica no ensino superior',
+                'fund-fonte': 'Revista de Educação Contemporânea'
+            };
+            
+            let corretas = 0;
+            let total = Object.keys(respostas).length;
+            
+            for (let campo in respostas) {
+                const input = document.getElementById(campo);
+                const valor = input.value.trim();
+                
+                if (valor.toLowerCase() === respostas[campo].toLowerCase()) {
+                    input.style.borderColor = 'var(--success)';
+                    corretas++;
+                } else {
+                    input.style.borderColor = 'var(--accent)';
+                }
+            }
+            
+            const feedback = document.getElementById('fund-feedback');
+            feedback.style.display = 'block';
+            
+            if (corretas === total) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '✅ Excelente! Identificou corretamente todos os elementos!';
+                showNotification('Parabéns! Domina os fundamentos!', 'success');
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `❌ Identificou ${corretas} de ${total} elementos. Reveja e tente novamente!`;
+            }
+        }
+
+        // Verificar citações
+        function verificarCitacoes() {
+            const direta = document.getElementById('cit-direta').value.trim();
+            const parafrase = document.getElementById('cit-parafrase').value.trim();
+            const feedback = document.getElementById('cit-feedback');
+            
+            let mensagem = '';
+            let correto = true;
+            
+            // Verificar citação direta
+            if (direta.toLowerCase().includes('rodrigues') && 
+                (direta.includes('(2024)') || direta.includes('2024')) &&
+                direta.includes('"') && 
+                direta.includes('p. 67')) {
+                mensagem += '✅ Citação direta correta!<br>';
+            } else {
+                mensagem += '❌ Citação direta: Verifique se incluiu autor, ano, aspas e página.<br>';
+                correto = false;
+            }
+            
+            // Verificar paráfrase
+            if (parafrase.toLowerCase().includes('rodrigues') && 
+                parafrase.includes('2024') &&
+                !parafrase.includes('"') &&
+                parafrase.length > 30) {
+                mensagem += '✅ Paráfrase correta!';
+            } else {
+                mensagem += '❌ Paráfrase: Reformule com suas palavras, sem aspas, mas com autor e ano.';
+                correto = false;
+            }
+            
+            feedback.style.display = 'block';
+            feedback.className = correto ? 'feedback correct' : 'feedback incorrect';
+            feedback.innerHTML = mensagem;
+        }
+
+        // Construir referência
+        function construirReferencia() {
+            const autor = document.getElementById('ref-autor').value.trim();
+            const ano = document.getElementById('ref-ano').value.trim();
+            const titulo = document.getElementById('ref-titulo').value.trim();
+            const editora = document.getElementById('ref-editora').value.trim();
+            
+            if (!autor || !ano || !titulo || !editora) {
+                showNotification('Por favor, preencha todos os campos!', 'error');
+                return;
+            }
+            
+            const referencia = `${autor} (${ano}). <em>${titulo}</em>. ${editora}.`;
+            
+            const resultado = document.getElementById('ref-resultado');
+            resultado.style.display = 'block';
+            resultado.innerHTML = referencia;
+            resultado.classList.add('bounce');
+            
+            showNotification('Referência criada com sucesso!', 'success');
+        }
+
+        // Verificar erros
+        function verificarErros() {
+            const erro1 = document.getElementById('erro1').value.trim();
+            const erro2 = document.getElementById('erro2').value.trim();
+            const feedback = document.getElementById('erros-feedback');
+            
+            let mensagem = '';
+            let pontos = 0;
+            
+            // Correção 1: Silva, J. (2023). Educação inclusiva. Editora ABC.
+            if (erro1.includes('Silva, J.') && erro1.includes('(2023).') && 
+                erro1.includes('Editora ABC') && !erro1.includes('editora')) {
+                mensagem += '✅ Correção 1: Perfeita!<br>';
+                pontos++;
+            } else {
+                mensagem += '❌ Correção 1: Falta inicial do nome, pontuação ou capitalização.<br>';
+            }
+            
+            // Correção 2: Costa, M. (2022). Metodologias ativas. Revista de Educação, 12(3).
+            if (erro2.includes('Costa, M.') && !erro2.includes('COSTA') &&
+                erro2.includes('Metodologias ativas') && !erro2.includes('"')) {
+                mensagem += '✅ Correção 2: Excelente!';
+                pontos++;
+            } else {
+                mensagem += '❌ Correção 2: Remova maiúsculas e aspas desnecessárias.';
+            }
+            
+            feedback.style.display = 'block';
+            feedback.className = pontos === 2 ? 'feedback correct' : 'feedback incorrect';
+            feedback.innerHTML = mensagem;
+        }
+
+        // Verificar ordem alfabética
+        function verificarOrdem() {
+            const refs = document.querySelectorAll('#referencias-desordenadas .citation-example');
+            const ordem = Array.from(refs).map(ref => ref.id);
+            const ordemCorreta = ['ref3', 'ref4', 'ref2', 'ref1']; // Almeida, Costa A., Costa B., Ferreira
+            
+            const feedback = document.getElementById('ordem-feedback');
+            
+            if (JSON.stringify(ordem) === JSON.stringify(ordemCorreta)) {
+                feedback.style.display = 'block';
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '✅ Ordem alfabética perfeita!';
+                showNotification('Excelente trabalho!', 'success');
+            } else {
+                feedback.style.display = 'block';
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = '❌ A ordem não está correta. Lembre-se: ordene por apelido, depois pelo primeiro nome.';
+            }
+        }
+
+        // Converter citação
+        function converterCitacao() {
+            const input = document.getElementById('conv-input').value.trim();
+            const resultado = document.getElementById('conv-resultado');
+            
+            if (!input) {
+                showNotification('Por favor, insira uma citação!', 'error');
+                return;
+            }
+            
+            // Simulação de conversão básica
+            let convertida = input;
+            
+            // Substituir vírgula após autor por ponto
+            convertida = convertida.replace(/,\s*João/, ', J.');
+            convertida = convertida.replace(/\.\s*([A-Z])/, '. $1');
+            
+            // Adicionar parênteses ao ano
+            convertida = convertida.replace(/\.\s*(\d{4})/, '. ($1)');
+            
+            // Adicionar itálico ao título
+            convertida = convertida.replace(/\.\s*([^.]+)\.\s*Lisboa/, '. <em>$1</em>. ');
+            
+            // Ajustar editora
+            convertida = convertida.replace(/Lisboa:\s*/, '');
+            
+            resultado.style.display = 'block';
+            resultado.innerHTML = convertida;
+            showNotification('Conversão realizada!', 'success');
+        }
+
+        // Quiz functions
+        function selectOption(button, question, answer) {
+            // Remove seleção anterior
+            const options = button.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Seleciona nova opção
+            button.classList.add('selected');
+            quizAnswers[question] = answer;
+        }
+
+        // Calcular resultado do quiz
+        function calcularResultado() {
+            const respostasCorretas = {
+                1: 'A',
+                2: 'B',
+                3: 'C'
+            };
+            
+            let corretas = 0;
+            const total = Object.keys(respostasCorretas).length;
+            
+            for (let pergunta in respostasCorretas) {
+                if (quizAnswers[pergunta] === respostasCorretas[pergunta]) {
+                    corretas++;
+                }
+            }
+            
+            const percentagem = (corretas / total) * 100;
+            
+            // Mostrar resultado
+            document.getElementById('quiz-resultado').style.display = 'block';
+            document.getElementById('quiz-progress').style.width = percentagem + '%';
+            document.getElementById('quiz-score').textContent = `${corretas} de ${total} respostas corretas (${percentagem.toFixed(0)}%)`;
+            
+            // Mostrar feedback nas opções
+            for (let i = 1; i <= total; i++) {
+                const container = document.querySelectorAll('.quiz-container')[i-1];
+                const options = container.querySelectorAll('.quiz-option');
+                
+                options.forEach((opt, index) => {
+                    const letra = String.fromCharCode(65 + index); // A, B, C, D
+                    if (letra === respostasCorretas[i]) {
+                        opt.classList.add('correct');
+                    } else if (letra === quizAnswers[i] && letra !== respostasCorretas[i]) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+            }
+            
+            if (percentagem >= 80) {
+                document.getElementById('certificado').style.display = 'block';
+                showNotification('Parabéns! Passou no quiz!', 'success');
+            } else {
+                showNotification('Continue a estudar e tente novamente!', 'error');
+            }
+        }
+
+        // Gerar certificado
+        function gerarCertificado() {
+            const nome = prompt('Digite o seu nome completo para o certificado:');
+            if (nome) {
+                const data = new Date().toLocaleDateString('pt-PT');
+                alert(`Certificado gerado!\n\nCertifica-se que ${nome} completou com sucesso a formação "APA Master - Citações para Professores" em ${data}.\n\n(Numa aplicação real, seria gerado um PDF)`);
+                showNotification('Certificado gerado com sucesso!', 'success');
+            }
+        }
+
+        // Verificar citação no texto
+        function verificarCitacaoTexto() {
+            const feedback = document.getElementById('citacao-texto-feedback');
+            const inputs = document.querySelectorAll('.citation-example input');
+            let corretas = 0;
+            
+            // Respostas esperadas (flexíveis)
+            const respostasValidas = {
+                0: ['(Gardner, 1983)', '(Gardner, 1999)'], // autor, ano
+                1: ['Gardner (1983)', 'Gardner (1999)', 'Gardner'], // autor
+                2: ['(p. 23)', '(p. 45)', '(pp. 23-24)'] // página
+            };
+            
+            inputs.forEach((input, index) => {
+                const valor = input.value.trim();
+                let correto = false;
+                
+                if (index === 0 && valor.match(/\(Gardner,\s*\d{4}\)/)) correto = true;
+                if (index === 1 && valor.includes('Gardner')) correto = true;
+                if (index === 2 && valor.match(/\(p\.\s*\d+\)/)) correto = true;
+                
+                if (correto) {
+                    input.style.borderColor = 'var(--success)';
+                    corretas++;
+                } else {
+                    input.style.borderColor = 'var(--accent)';
+                }
+            });
+            
+            feedback.style.display = 'block';
+            if (corretas === 3) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '✅ Perfeito! Todas as citações estão corretas!';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `❌ ${corretas} de 3 corretas. Lembre-se do formato: (Autor, ano) e (p. número)`;
+            }
+        }
+
+        // Voltar ao topo
+        function voltarAoTopo() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mostrar notificação
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            const text = document.getElementById('notification-text');
+            
+            text.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Drag and drop para ordenação
+        let draggedElement = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const draggables = document.querySelectorAll('[draggable="true"]');
+            const container = document.getElementById('referencias-desordenadas');
+            
+            draggables.forEach(item => {
+                item.addEventListener('dragstart', function(e) {
+                    draggedElement = this;
+                    this.style.opacity = '0.5';
+                });
+                
+                item.addEventListener('dragend', function(e) {
+                    this.style.opacity = '';
+                });
+                
+                item.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    const afterElement = getDragAfterElement(container, e.clientY);
+                    if (afterElement == null) {
+                        container.appendChild(draggedElement);
+                    } else {
+                        container.insertBefore(draggedElement, afterElement);
+                    }
+                });
+            });
+        });
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('[draggable="true"]:not(.dragging)')];
+            
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        // Animação inicial
+        window.addEventListener('load', function() {
+            showNotification('Bem-vindo à formação APA Master! 📚', 'success');
+        });
+
+        // Atalhos de teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        document.querySelector('.nav-tab').click();
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        document.querySelectorAll('.nav-tab')[1].click();
+                        break;
+                    // ... adicionar mais atalhos conforme necessário
+                }
+            }
+        });
+
+        // Easter egg para motivação
+        let clickCount = 0;
+        document.querySelector('h1').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 5) {
+                showNotification('🎉 Você é incrível! Continue assim!', 'success');
+                clickCount = 0;
+            }
+        });
+
+        // Auto-save para exercícios (simulado)
+        let autoSaveInterval = setInterval(function() {
+            const inputs = document.querySelectorAll('input[type="text"], textarea');
+            let hasContent = false;
+            
+            inputs.forEach(input => {
+                if (input.value.trim()) {
+                    hasContent = true;
+                    // Numa aplicação real, guardaria no localStorage
+                }
+            });
+            
+            if (hasContent) {
+                console.log('Auto-save: Progresso guardado');
+            }
+        }, 30000); // A cada 30 segundos
+
+        // Cleanup ao sair
+        window.addEventListener('beforeunload', function(e) {
+            const inputs = document.querySelectorAll('input[type="text"], textarea');
+            let hasUnsavedContent = false;
+            
+            inputs.forEach(input => {
+                if (input.value.trim()) {
+                    hasUnsavedContent = true;
+                }
+            });
+            
+            if (hasUnsavedContent) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+    </script>
+</body>
+</html> Direta Curta (menos de 40 palavras)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Quando cita exatamente as palavras do autor, deve incluir o número da página.</p>
+                        <div class="citation-example">
+                            Segundo Costa (2021), "a implementação de metodologias ativas transformou significativamente o ambiente de aprendizagem" (p. 45).
+                        </div>
+                        <p><strong>Ou:</strong></p>
+                        <div class="citation-example">
+                            "A implementação de metodologias ativas transformou significativamente o ambiente de aprendizagem" (Costa, 2021, p. 45).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Citação
